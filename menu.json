@@ -1,0 +1,134 @@
+{
+  "restaurant": {
+    "name": "Hotel Aalayaa",
+    "tagline": "Pure Vegetarian Restaurant",
+    "rating": "4.3",
+    "reviews": 410,
+    "costForTwo": "₹200–400",
+    "swiggy": "https://www.swiggy.com/city/chennai/hotel-aalayaa-avadi-rest988997",
+    "zomato": "https://www.zomato.com/chennai/hotel-aalayaa-avadi"
+  },
+  "branches": [
+    {
+      "key": "paruthippattu",
+      "name": "Paruthippattu",
+      "address": "Sri Ram Nagar, Poonamallee Road, Paruthippattu, Avadi, Chennai, Tamil Nadu 600071",
+      "phone": "+91 89259 87062",
+      "hours": "Every day, 7:00 AM – 11:00 PM"
+    },
+    {
+      "key": "jakcity",
+      "name": "Jak City",
+      "address": "NH 716, Jak City, Bhaktavatsala Puram, Avadi, Tamil Nadu 600054",
+      "phone": "+91 89259 87065",
+      "hours": "Call the branch to confirm timings"
+    }
+  ],
+  "categories": [
+    {
+      "id": "tiffin",
+      "name": "Mini Tiffin",
+      "items": [
+        { "id": "t1", "name": "Mini Tiffin Combo", "price": 120, "desc": "Idly, mini dosa, pongal, vada and kesari" },
+        { "id": "t2", "name": "Pongal Vada", "price": 70, "desc": "Ghee pongal with crisp medu vada" },
+        { "id": "t3", "name": "Poori Masala", "price": 80, "desc": "2 pooris with potato masala" },
+        { "id": "t4", "name": "Kal Dosai Set", "price": 70, "desc": "3 soft kal dosai with sambar and chutneys" },
+        { "id": "t5", "name": "Rava Upma", "price": 55, "desc": "Served with chutney and sambar" }
+      ]
+    },
+    {
+      "id": "dosa",
+      "name": "Dosa",
+      "items": [
+        { "id": "d1", "name": "Plain Dosa", "price": 60, "desc": "Crisp dosa with sambar and chutneys" },
+        { "id": "d2", "name": "Ghee Roast", "price": 90, "desc": "Golden roast brushed with ghee" },
+        { "id": "d3", "name": "Masala Dosa", "price": 90, "desc": "Stuffed with potato masala" },
+        { "id": "d4", "name": "Podi Dosa", "price": 85, "desc": "Spread with gunpowder and oil" },
+        { "id": "d5", "name": "Onion Rava Dosa", "price": 100, "desc": "Lacy rava dosa with onion and pepper" },
+        { "id": "d6", "name": "Mysore Masala Dosa", "price": 110, "desc": "Red chutney layer with potato masala" },
+        { "id": "d7", "name": "Paneer Dosa", "price": 130, "desc": "Spiced paneer filling" },
+        { "id": "d8", "name": "Set Dosa", "price": 80, "desc": "3 soft spongy dosas with sagu" }
+      ]
+    },
+    {
+      "id": "idly",
+      "name": "Idly & Vada",
+      "items": [
+        { "id": "i1", "name": "Idly", "price": 40, "desc": "2 steamed idlies" },
+        { "id": "i2", "name": "Ghee Podi Idly", "price": 70, "desc": "Idly tossed in podi and ghee" },
+        { "id": "i3", "name": "Sambar Idly", "price": 75, "desc": "Mini idlies soaked in hot sambar" },
+        { "id": "i4", "name": "Medu Vada", "price": 50, "desc": "2 crisp urad dal vadas" },
+        { "id": "i5", "name": "Sambar Vada", "price": 70, "desc": "Vada dunked in sambar" },
+        { "id": "i6", "name": "Curd Vada", "price": 70, "desc": "Vada in seasoned curd" }
+      ]
+    },
+    {
+      "id": "meals",
+      "name": "Meals & Rice",
+      "items": [
+        { "id": "m1", "name": "South Indian Meals", "price": 140, "desc": "Rice, sambar, rasam, kootu, poriyal, curd, appalam" },
+        { "id": "m2", "name": "Mini Meals", "price": 100, "desc": "Rice, sambar, rasam, poriyal, curd" },
+        { "id": "m3", "name": "Lunch Combo", "price": 120, "desc": "Rice, chapati, kurma, poriyal, curd" },
+        { "id": "m4", "name": "Curd Rice", "price": 60, "desc": "With pickle" },
+        { "id": "m5", "name": "Sambar Rice", "price": 80, "desc": "Rice cooked with sambar, with appalam" },
+        { "id": "m6", "name": "Lemon Rice", "price": 80, "desc": "Tempered with peanuts and curry leaves" }
+      ]
+    },
+    {
+      "id": "paneer",
+      "name": "Paneer Specialties",
+      "items": [
+        { "id": "p1", "name": "Paneer Butter Masala", "price": 190, "desc": "Creamy tomato gravy" },
+        { "id": "p2", "name": "Kadai Paneer", "price": 190, "desc": "Capsicum and onion in kadai masala" },
+        { "id": "p3", "name": "Paneer Tikka Masala", "price": 200, "desc": "Grilled paneer in spiced gravy" },
+        { "id": "p4", "name": "Palak Paneer", "price": 180, "desc": "Spinach gravy with paneer cubes" },
+        { "id": "p5", "name": "Paneer Chilli", "price": 180, "desc": "Dry, tossed with peppers and soy" }
+      ]
+    },
+    {
+      "id": "biryani",
+      "name": "Biryani & Fried Rice",
+      "items": [
+        { "id": "b1", "name": "Veg Biryani", "price": 150, "desc": "With onion raita" },
+        { "id": "b2", "name": "Paneer Biryani", "price": 180, "desc": "With onion raita" },
+        { "id": "b3", "name": "Veg Fried Rice", "price": 130, "desc": "Wok tossed with vegetables" },
+        { "id": "b4", "name": "Paneer Fried Rice", "price": 160, "desc": "Wok tossed with paneer" },
+        { "id": "b5", "name": "Jeera Rice", "price": 100, "desc": "Cumin tempered basmati" }
+      ]
+    },
+    {
+      "id": "bread",
+      "name": "Chapati & Parotta",
+      "items": [
+        { "id": "c1", "name": "Chapati", "price": 50, "desc": "2 soft chapatis" },
+        { "id": "c2", "name": "Chapati with Kurma", "price": 80, "desc": "2 chapatis with veg kurma" },
+        { "id": "c3", "name": "Kerala Parotta", "price": 70, "desc": "2 layered parottas with kurma" },
+        { "id": "c4", "name": "Veg Kothu Parotta", "price": 120, "desc": "Shredded parotta tossed with veg and salna" },
+        { "id": "c5", "name": "Butter Naan", "price": 50, "desc": "Tandoor baked" }
+      ]
+    },
+    {
+      "id": "chinese",
+      "name": "Indo-Chinese",
+      "items": [
+        { "id": "n1", "name": "Gobi Manchurian", "price": 130, "desc": "Crisp cauliflower in manchurian sauce" },
+        { "id": "n2", "name": "Baby Corn Manchurian", "price": 140, "desc": "Dry or gravy" },
+        { "id": "n3", "name": "Veg Noodles", "price": 120, "desc": "Hakka style" },
+        { "id": "n4", "name": "Veg Manchow Soup", "price": 80, "desc": "Served with fried noodles" },
+        { "id": "n5", "name": "Sweet Corn Soup", "price": 80, "desc": "Mild and creamy" }
+      ]
+    },
+    {
+      "id": "drinks",
+      "name": "Beverages & Sweets",
+      "items": [
+        { "id": "s1", "name": "Filter Coffee", "price": 25, "desc": "Strong decoction with fresh milk" },
+        { "id": "s2", "name": "Masala Tea", "price": 20, "desc": "Ginger and cardamom" },
+        { "id": "s3", "name": "Badam Milk", "price": 50, "desc": "Hot or cold" },
+        { "id": "s4", "name": "Fresh Lime Juice", "price": 40, "desc": "Sweet or salt" },
+        { "id": "s5", "name": "Kesari", "price": 40, "desc": "Rava kesari with ghee" },
+        { "id": "s6", "name": "Gulab Jamun", "price": 50, "desc": "2 pieces" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hotel Aalayaa</title>
+<meta name="description" content="Hotel Aalayaa Veg Restaurant, Avadi, Chennai. Browse the menu and send your order on WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@400;500;600;700&family=Rozha+One&display=swap">
+<style>
+/* Layout: sticky masthead, deep-green hero on a pulli (kolam dot) grid, branch cards,
+   then menu list beside a sticky order panel (stacked on phones with a bottom order bar). */
+:root {
+  --bg: #F3F6EE;
+  --surface: #FFFFFF;
+  --fg: #17261E;
+  --muted: #55665B;
+  --line: #D8E0D1;
+  --leaf: #1D5A3E;
+  --leaf-ink: #FFFFFF;
+  --gold: #EDA91B;
+  --gold-ink: #2A1C00;
+  --hero-bg: #154530;
+  --hero-fg: #F4F2E4;
+  --hero-muted: #BDD2C3;
+  --hero-dot: rgba(237, 169, 27, 0.35);
+  --font-display: 'Rozha One', Georgia, serif;
+  --font-body: 'Hind Madurai', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --head-h: 58px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1913; --surface: #15251C; --fg: #EAF1E8; --muted: #9DB0A3; --line: #264034;
+    --leaf: #25805A; --leaf-ink: #FFFFFF; --gold: #EDA91B; --gold-ink: #2A1C00;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1913; --surface: #15251C; --fg: #EAF1E8; --muted: #9DB0A3; --line: #264034;
+  --leaf: #25805A; --leaf-ink: #FFFFFF; --gold: #EDA91B; --gold-ink: #2A1C00;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+}
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.15; }
+
+/* Masthead */
+.masthead {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.masthead .wrap { height: var(--head-h); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { font-family: var(--font-display); font-size: 1.35rem; text-decoration: none; white-space: nowrap; }
+.nav { display: flex; align-items: center; gap: 18px; font-weight: 500; }
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 520px) { .nav a.hide-sm { display: none; } }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 46px; padding: 0 22px; border-radius: 999px; border: 2px solid transparent;
+  font-weight: 700; text-decoration: none; cursor: pointer; text-align: center;
+}
+.btn-gold { background: var(--gold); color: var(--gold-ink); }
+.btn-gold:hover { filter: brightness(1.06); }
+.btn-ghost { border-color: var(--hero-muted); color: var(--hero-fg); background: transparent; }
+.btn-ghost:hover { background: rgba(255,255,255,.08); }
+.btn-leaf { background: var(--leaf); color: var(--leaf-ink); width: 100%; }
+.btn-leaf:hover { filter: brightness(1.08); }
+.btn[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+
+/* Hero */
+.hero {
+  background-color: var(--hero-bg);
+  background-image: radial-gradient(circle, var(--hero-dot) 2px, transparent 2.5px);
+  background-size: 30px 30px;
+  color: var(--hero-fg);
+}
+.hero .wrap { padding-block: clamp(40px, 8vw, 84px); }
+.eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: .78rem; font-weight: 600; color: var(--gold); margin: 0 0 14px; }
+.hero h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.8rem, 10vw, 5.6rem); line-height: 1.02; }
+.hero .tamil { margin: 8px 0 0; font-size: 1.15rem; color: var(--hero-muted); }
+.hero .lede { max-width: 34rem; margin: 20px 0 0; font-size: 1.1rem; color: var(--hero-fg); }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 34px 0 0; padding: 0; list-style: none; color: var(--hero-muted); font-size: .98rem; }
+.facts b { color: var(--hero-fg); font-weight: 700; }
+
+/* Branches */
+.section { padding-block: clamp(36px, 6vw, 64px); }
+.branches { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; margin-top: 22px; }
+.branch { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; min-width: 0; }
+.branch h3 { font-size: 1.2rem; font-weight: 700; }
+.branch p { margin: 8px 0 0; color: var(--muted); overflow-wrap: anywhere; }
+.branch .phone { color: var(--fg); font-weight: 600; user-select: all; }
+.branch a.map { display: inline-block; margin-top: 12px; font-weight: 600; color: var(--leaf); text-underline-offset: 4px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .branch a.map { color: #6FD3A2; } }
+:root[data-theme="dark"] .branch a.map { color: #6FD3A2; }
+.also { margin-top: 20px; color: var(--muted); }
+.also a { font-weight: 600; color: var(--fg); text-underline-offset: 4px; }
+
+/* Menu + order */
+.shop { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 40px; align-items: start; margin-top: 22px; }
+@media (max-width: 920px) { .shop { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+.chips {
+  position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--head-h)); z-index: 10;
+  display: flex; gap: 8px; overflow-x: auto; padding: 10px 0; background: var(--bg);
+  scrollbar-width: none;
+}
+.chips::-webkit-scrollbar { display: none; }
+.chip {
+  flex: none; min-height: 38px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+  background: transparent; border: 1.5px solid var(--line); font-weight: 600; white-space: nowrap;
+}
+.chip:hover { border-color: var(--leaf); }
+.cat { padding-top: 26px; scroll-margin-top: calc(env(safe-area-inset-top, 0px) + var(--head-h) + 60px); }
+.cat h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; }
+.item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.item .name { font-weight: 600; font-size: 1.06rem; }
+.item .desc { color: var(--muted); font-size: .94rem; margin-top: 2px; }
+.buy { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.price { font-weight: 700; font-variant-numeric: tabular-nums; }
+.add {
+  min-height: 38px; min-width: 84px; padding: 0 18px; border-radius: 999px; cursor: pointer;
+  background: transparent; border: 1.5px solid var(--leaf); color: var(--leaf); font-weight: 700;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .add { color: #6FD3A2; border-color: #3FA878; } }
+:root[data-theme="dark"] .add { color: #6FD3A2; border-color: #3FA878; }
+.add:hover { background: var(--leaf); color: var(--leaf-ink); border-color: var(--leaf); }
+.step { display: inline-flex; align-items: center; border-radius: 999px; background: var(--leaf); color: var(--leaf-ink); }
+.step button { width: 38px; height: 38px; border: 0; background: transparent; color: inherit; font-size: 1.25rem; cursor: pointer; border-radius: 999px; }
+.step button:hover { background: rgba(255,255,255,.16); }
+.step output { min-width: 26px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.order {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; min-width: 0;
+  position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--head-h) + 16px);
+}
+@media (max-width: 920px) { .order { position: static; } }
+.order h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; }
+.empty { color: var(--muted); margin: 12px 0 0; }
+.lines { list-style: none; margin: 14px 0 0; padding: 0; }
+.lines li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+.lines .q { font-variant-numeric: tabular-nums; color: var(--muted); }
+.lines .t { font-variant-numeric: tabular-nums; font-weight: 600; }
+.total { display: flex; justify-content: space-between; margin-top: 14px; font-size: 1.15rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.field { display: block; margin-top: 14px; }
+.field > span { display: block; font-size: .85rem; font-weight: 600; color: var(--muted); margin-bottom: 4px; letter-spacing: .02em; }
+.field input, .field select, .field textarea {
+  width: 100%; min-height: 44px; padding: 8px 12px; border-radius: 10px;
+  border: 1.5px solid var(--line); background: var(--bg);
+}
+.field textarea { min-height: 76px; resize: vertical; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 14px; }
+.seg button { min-height: 44px; border-radius: 10px; border: 1.5px solid var(--line); background: transparent; font-weight: 600; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--leaf-ink); border-color: var(--leaf); }
+.order .btn { margin-top: 18px; }
+.note { margin: 10px 0 0; font-size: .86rem; color: var(--muted); }
+
+/* Footer */
+footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); font-size: .94rem; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+footer a { text-underline-offset: 4px; }
+@media (max-width: 920px) { footer { padding-bottom: 96px; } }
+
+/* Mobile order bar */
+.bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: var(--bg); border-top: 1px solid var(--line);
+  padding: 10px max(16px, env(safe-area-inset-left, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.bar .btn { width: 100%; }
+@media (min-width: 921px) { .bar { display: none !important; } }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="#top">Hotel Aalayaa</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#menu">Menu</a>
+      <a class="hide-sm" href="#branches">Branches</a>
+      <a id="navWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Pure vegetarian &middot; Avadi, Chennai</p>
+      <h1>Hotel Aalayaa</h1>
+      <p class="tamil" lang="ta">சுத்த சைவ உணவகம்</p>
+      <p class="lede">South Indian tiffin and meals, paneer specialties, veg biryani and Indo-Chinese, cooked fresh at two branches in Avadi.</p>
+      <div class="cta">
+        <a class="btn btn-gold" href="#menu">Order from the menu</a>
+        <a id="heroWa" class="btn btn-ghost" href="#" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+      <ul class="facts">
+        <li><b id="rating"></b> on Google</li>
+        <li><b id="cost"></b> for two</li>
+        <li><b>7 AM – 11 PM</b> at Paruthippattu</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="branches">
+    <div class="wrap">
+      <h2>Our branches</h2>
+      <div class="branches" id="branchList"></div>
+      <p class="also">Also delivering through <a id="swiggy" href="#" target="_blank" rel="noopener">Swiggy</a> and <a id="zomato" href="#" target="_blank" rel="noopener">Zomato</a>.</p>
+    </div>
+  </section>
+
+  <section class="section" id="menu" style="padding-top:0">
+    <div class="wrap">
+      <h2>Menu</h2>
+      <div class="shop">
+        <div>
+          <div class="chips" id="chips" role="tablist" aria-label="Menu sections"></div>
+          <div id="menuList"></div>
+        </div>
+        <aside class="order" id="order" aria-label="Your order">
+          <h3>Your order</h3>
+          <p class="empty" id="empty">Nothing added yet. Tap Add on any dish to start.</p>
+          <ul class="lines" id="lines" hidden></ul>
+          <div class="total" id="totalRow" hidden><span>Total</span><span id="total"></span></div>
+
+          <div class="seg" role="group" aria-label="Order type">
+            <button type="button" data-mode="Delivery" aria-pressed="true">Delivery</button>
+            <button type="button" data-mode="Pickup" aria-pressed="false">Pickup</button>
+          </div>
+          <label class="field" for="branch"><span>Branch</span><select id="branch"></select></label>
+          <label class="field" for="name"><span>Your name</span><input id="name" autocomplete="name" placeholder="Name for the order"></label>
+          <label class="field" for="address" id="addressField"><span>Delivery address</span><textarea id="address" autocomplete="street-address" placeholder="House no., street, landmark"></textarea></label>
+
+          <a id="send" class="btn btn-leaf" href="#" target="_blank" rel="noopener" aria-disabled="true">Send order on WhatsApp</a>
+          <p class="note">Your order opens in WhatsApp. The branch confirms it there. Pay at the restaurant or on delivery.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; Hotel Aalayaa Veg Restaurant, Avadi, Chennai</span>
+    <span>Pure vegetarian kitchen</span>
+  </div>
+</footer>
+
+<div class="bar" id="bar" hidden>
+  <a class="btn btn-gold" href="#order" id="barBtn">View order</a>
+</div>
+
+<script>
+// Replace with the WhatsApp number that runs the ordering bot (country code, digits only).
+const WHATSAPP_NUMBER = '15556773895';
+const MENU = {"restaurant": {"name": "Hotel Aalayaa", "tagline": "Pure Vegetarian Restaurant", "rating": "4.3", "reviews": 410, "costForTwo": "₹200–400", "swiggy": "https://www.swiggy.com/city/chennai/hotel-aalayaa-avadi-rest988997", "zomato": "https://www.zomato.com/chennai/hotel-aalayaa-avadi"}, "branches": [{"key": "paruthippattu", "name": "Paruthippattu", "address": "Sri Ram Nagar, Poonamallee Road, Paruthippattu, Avadi, Chennai, Tamil Nadu 600071", "phone": "+91 89259 87062", "hours": "Every day, 7:00 AM – 11:00 PM"}, {"key": "jakcity", "name": "Jak City", "address": "NH 716, Jak City, Bhaktavatsala Puram, Avadi, Tamil Nadu 600054", "phone": "+91 89259 87065", "hours": "Call the branch to confirm timings"}], "categories": [{"id": "tiffin", "name": "Mini Tiffin", "items": [{"id": "t1", "name": "Mini Tiffin Combo", "price": 120, "desc": "Idly, mini dosa, pongal, vada and kesari"}, {"id": "t2", "name": "Pongal Vada", "price": 70, "desc": "Ghee pongal with crisp medu vada"}, {"id": "t3", "name": "Poori Masala", "price": 80, "desc": "2 pooris with potato masala"}, {"id": "t4", "name": "Kal Dosai Set", "price": 70, "desc": "3 soft kal dosai with sambar and chutneys"}, {"id": "t5", "name": "Rava Upma", "price": 55, "desc": "Served with chutney and sambar"}]}, {"id": "dosa", "name": "Dosa", "items": [{"id": "d1", "name": "Plain Dosa", "price": 60, "desc": "Crisp dosa with sambar and chutneys"}, {"id": "d2", "name": "Ghee Roast", "price": 90, "desc": "Golden roast brushed with ghee"}, {"id": "d3", "name": "Masala Dosa", "price": 90, "desc": "Stuffed with potato masala"}, {"id": "d4", "name": "Podi Dosa", "price": 85, "desc": "Spread with gunpowder and oil"}, {"id": "d5", "name": "Onion Rava Dosa", "price": 100, "desc": "Lacy rava dosa with onion and pepper"}, {"id": "d6", "name": "Mysore Masala Dosa", "price": 110, "desc": "Red chutney layer with potato masala"}, {"id": "d7", "name": "Paneer Dosa", "price": 130, "desc": "Spiced paneer filling"}, {"id": "d8", "name": "Set Dosa", "price": 80, "desc": "3 soft spongy dosas with sagu"}]}, {"id": "idly", "name": "Idly & Vada", "items": [{"id": "i1", "name": "Idly", "price": 40, "desc": "2 steamed idlies"}, {"id": "i2", "name": "Ghee Podi Idly", "price": 70, "desc": "Idly tossed in podi and ghee"}, {"id": "i3", "name": "Sambar Idly", "price": 75, "desc": "Mini idlies soaked in hot sambar"}, {"id": "i4", "name": "Medu Vada", "price": 50, "desc": "2 crisp urad dal vadas"}, {"id": "i5", "name": "Sambar Vada", "price": 70, "desc": "Vada dunked in sambar"}, {"id": "i6", "name": "Curd Vada", "price": 70, "desc": "Vada in seasoned curd"}]}, {"id": "meals", "name": "Meals & Rice", "items": [{"id": "m1", "name": "South Indian Meals", "price": 140, "desc": "Rice, sambar, rasam, kootu, poriyal, curd, appalam"}, {"id": "m2", "name": "Mini Meals", "price": 100, "desc": "Rice, sambar, rasam, poriyal, curd"}, {"id": "m3", "name": "Lunch Combo", "price": 120, "desc": "Rice, chapati, kurma, poriyal, curd"}, {"id": "m4", "name": "Curd Rice", "price": 60, "desc": "With pickle"}, {"id": "m5", "name": "Sambar Rice", "price": 80, "desc": "Rice cooked with sambar, with appalam"}, {"id": "m6", "name": "Lemon Rice", "price": 80, "desc": "Tempered with peanuts and curry leaves"}]}, {"id": "paneer", "name": "Paneer Specialties", "items": [{"id": "p1", "name": "Paneer Butter Masala", "price": 190, "desc": "Creamy tomato gravy"}, {"id": "p2", "name": "Kadai Paneer", "price": 190, "desc": "Capsicum and onion in kadai masala"}, {"id": "p3", "name": "Paneer Tikka Masala", "price": 200, "desc": "Grilled paneer in spiced gravy"}, {"id": "p4", "name": "Palak Paneer", "price": 180, "desc": "Spinach gravy with paneer cubes"}, {"id": "p5", "name": "Paneer Chilli", "price": 180, "desc": "Dry, tossed with peppers and soy"}]}, {"id": "biryani", "name": "Biryani & Fried Rice", "items": [{"id": "b1", "name": "Veg Biryani", "price": 150, "desc": "With onion raita"}, {"id": "b2", "name": "Paneer Biryani", "price": 180, "desc": "With onion raita"}, {"id": "b3", "name": "Veg Fried Rice", "price": 130, "desc": "Wok tossed with vegetables"}, {"id": "b4", "name": "Paneer Fried Rice", "price": 160, "desc": "Wok tossed with paneer"}, {"id": "b5", "name": "Jeera Rice", "price": 100, "desc": "Cumin tempered basmati"}]}, {"id": "bread", "name": "Chapati & Parotta", "items": [{"id": "c1", "name": "Chapati", "price": 50, "desc": "2 soft chapatis"}, {"id": "c2", "name": "Chapati with Kurma", "price": 80, "desc": "2 chapatis with veg kurma"}, {"id": "c3", "name": "Kerala Parotta", "price": 70, "desc": "2 layered parottas with kurma"}, {"id": "c4", "name": "Veg Kothu Parotta", "price": 120, "desc": "Shredded parotta tossed with veg and salna"}, {"id": "c5", "name": "Butter Naan", "price": 50, "desc": "Tandoor baked"}]}, {"id": "chinese", "name": "Indo-Chinese", "items": [{"id": "n1", "name": "Gobi Manchurian", "price": 130, "desc": "Crisp cauliflower in manchurian sauce"}, {"id": "n2", "name": "Baby Corn Manchurian", "price": 140, "desc": "Dry or gravy"}, {"id": "n3", "name": "Veg Noodles", "price": 120, "desc": "Hakka style"}, {"id": "n4", "name": "Veg Manchow Soup", "price": 80, "desc": "Served with fried noodles"}, {"id": "n5", "name": "Sweet Corn Soup", "price": 80, "desc": "Mild and creamy"}]}, {"id": "drinks", "name": "Beverages & Sweets", "items": [{"id": "s1", "name": "Filter Coffee", "price": 25, "desc": "Strong decoction with fresh milk"}, {"id": "s2", "name": "Masala Tea", "price": 20, "desc": "Ginger and cardamom"}, {"id": "s3", "name": "Badam Milk", "price": 50, "desc": "Hot or cold"}, {"id": "s4", "name": "Fresh Lime Juice", "price": 40, "desc": "Sweet or salt"}, {"id": "s5", "name": "Kesari", "price": 40, "desc": "Rava kesari with ghee"}, {"id": "s6", "name": "Gulab Jamun", "price": 50, "desc": "2 pieces"}]}]};
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const rupee = (n) => '₹' + n;
+const wa = (text) => 'https://wa.me/' + WHATSAPP_NUMBER + (text ? '?text=' + encodeURIComponent(text) : '');
+
+const items = {};
+MENU.categories.forEach((c) => c.items.forEach((i) => (items[i.id] = i)));
+const cart = {};
+const state = { mode: 'Delivery' };
+
+/* Static bits */
+$('#rating').textContent = '★ ' + MENU.restaurant.rating + ' (' + MENU.restaurant.reviews + ' reviews)';
+$('#cost').textContent = MENU.restaurant.costForTwo;
+$('#swiggy').href = MENU.restaurant.swiggy;
+$('#zomato').href = MENU.restaurant.zomato;
+$('#navWa').href = wa('Hi Hotel Aalayaa');
+$('#heroWa').href = wa('Hi Hotel Aalayaa');
+
+$('#branchList').innerHTML = MENU.branches.map((b) =>
+  '<article class="branch"><h3>' + esc(b.name) + '</h3>' +
+  '<p>' + esc(b.address) + '</p>' +
+  '<p><span class="phone">' + esc(b.phone) + '</span></p>' +
+  '<p>' + esc(b.hours) + '</p>' +
+  '<a class="map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Hotel Aalayaa ' + b.address) + '">Open in Maps</a></article>'
+).join('');
+
+$('#branch').innerHTML = MENU.branches.map((b) => '<option value="' + esc(b.key) + '">' + esc(b.name) + '</option>').join('');
+
+$('#chips').innerHTML = MENU.categories.map((c) => '<button class="chip" type="button" data-chip="' + esc(c.id) + '">' + esc(c.name) + '</button>').join('');
+
+$('#menuList').innerHTML = MENU.categories.map((c) =>
+  '<section class="cat" id="cat-' + esc(c.id) + '"><h3>' + esc(c.name) + '</h3>' +
+  c.items.map((i) =>
+    '<div class="item"><div><div class="name">' + esc(i.name) + '</div><div class="desc">' + esc(i.desc) + '</div></div>' +
+    '<div class="buy"><span class="price">' + rupee(i.price) + '</span><span data-ctl="' + esc(i.id) + '"></span></div></div>'
+  ).join('') + '</section>'
+).join('');
+
+function renderCtl(id) {
+  const el = document.querySelector('[data-ctl="' + id + '"]');
+  const q = cart[id] || 0;
+  el.innerHTML = q
+    ? '<span class="step"><button type="button" data-dec="' + id + '" aria-label="Remove one">−</button><output>' + q + '</output><button type="button" data-inc="' + id + '" aria-label="Add one">+</button></span>'
+    : '<button class="add" type="button" data-inc="' + id + '">Add</button>';
+}
+Object.keys(items).forEach(renderCtl);
+
+function orderText() {
+  const b = MENU.branches.find((x) => x.key === $('#branch').value);
+  const name = $('#name').value.trim();
+  const addr = $('#address').value.trim();
+  let t = "Hello Hotel Aalayaa! I'd like to place an order (via website)\n";
+  t += 'Branch: ' + b.name + '\nType: ' + state.mode + '\n';
+  if (name) t += 'Name: ' + name + '\n';
+  if (state.mode === 'Delivery' && addr) t += 'Address: ' + addr + '\n';
+  t += '\n';
+  let total = 0;
+  Object.keys(cart).forEach((id) => {
+    const line = items[id].price * cart[id];
+    total += line;
+    t += cart[id] + ' x ' + items[id].name + ' = ' + rupee(line) + '\n';
+  });
+  return t + '\nTotal: ' + rupee(total);
+}
+
+function renderCart() {
+  const ids = Object.keys(cart);
+  let total = 0, count = 0;
+  $('#lines').innerHTML = ids.map((id) => {
+    const line = items[id].price * cart[id];
+    total += line; count += cart[id];
+    return '<li><span class="q">' + cart[id] + '×</span><span>' + esc(items[id].name) + '</span><span class="t">' + rupee(line) + '</span></li>';
+  }).join('');
+  const has = ids.length > 0;
+  $('#empty').hidden = has;
+  $('#lines').hidden = !has;
+  $('#totalRow').hidden = !has;
+  $('#total').textContent = rupee(total);
+  $('#addressField').hidden = state.mode !== 'Delivery';
+  const send = $('#send');
+  if (has) { send.href = wa(orderText()); send.setAttribute('aria-disabled', 'false'); }
+  else { send.href = '#order'; send.setAttribute('aria-disabled', 'true'); }
+  $('#bar').hidden = !has;
+  $('#barBtn').textContent = 'View order · ' + count + (count === 1 ? ' item' : ' items') + ' · ' + rupee(total);
+}
+
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('button, a');
+  if (!t) return;
+  if (t.dataset.inc) { cart[t.dataset.inc] = (cart[t.dataset.inc] || 0) + 1; renderCtl(t.dataset.inc); renderCart(); }
+  else if (t.dataset.dec) {
+    const id = t.dataset.dec;
+    cart[id] = (cart[id] || 0) - 1;
+    if (cart[id] <= 0) delete cart[id];
+    renderCtl(id); renderCart();
+  } else if (t.dataset.chip) {
+    document.getElementById('cat-' + t.dataset.chip).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else if (t.dataset.mode) {
+    state.mode = t.dataset.mode;
+    document.querySelectorAll('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === state.mode)));
+    renderCart();
+  }
+});
+['#branch', '#name', '#address'].forEach((s) => $(s).addEventListener('input', renderCart));
+renderCart();
+</script>
+</body>
+</html>

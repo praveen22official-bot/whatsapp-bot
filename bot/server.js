@@ -20,6 +20,8 @@ const STAFF = { paruthippattu: STAFF_PARUTHIPPATTU, jakcity: STAFF_JAKCITY };
 const items = {};
 menu.categories.forEach((c) => c.items.forEach((i) => (items[i.id] = i)));
 const branchByKey = Object.fromEntries(menu.branches.map((b) => [b.key, b]));
+const RESTART = /^\s*(hi+|hello+|hey+|hai|start|menu|restart|reset|home|vanakkam|namaste)\s*[!.?]*\s*$/i;
+const CANCEL  = /^\s*(cancel|stop|exit|quit)\s*[!.?]*\s*$/i;
 
 // ---------- sending ----------
 async function send(payload) {
@@ -167,6 +169,16 @@ async function handle(from, msg) {
     body = msg.text.body.trim();
   } else {
     return text(from, 'Sorry, I can only read text and button taps. Send "hi" to start.');
+  }
+
+  // Global restart/cancel (works at any step)
+  if (!id && body && CANCEL.test(body)) {
+    reset(from);
+    return text(from, 'Order cancelled. Send "hi" whenever you want to order again.');
+  }
+  if (!id && body && RESTART.test(body)) {
+    reset(from);
+    return welcome(from);
   }
 
   // Order sent from the website

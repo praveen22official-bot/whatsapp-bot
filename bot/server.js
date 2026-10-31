@@ -1,8 +1,8 @@
-// Hotel Aalayaa WhatsApp ordering bot (WhatsApp Cloud API, Node 20+).
-// Run:  node --env-file=.env server.js
+// Modify bot/server.js to support token links and integrate with new system
 const express = require('express');
 const crypto = require('crypto');
 const menu = require('../menu.json');
+const { signOrderLink } = require('../utils/token');
 
 const {
   WA_TOKEN,
@@ -12,6 +12,7 @@ const {
   STAFF_PARUTHIPPATTU,
   STAFF_JAKCITY,
   PORT = 3000,
+  APP_URL,
 } = process.env;
 
 const API = `https://graph.facebook.com/v21.0/${WA_PHONE_ID}/messages`;
@@ -20,6 +21,7 @@ const STAFF = { paruthippattu: STAFF_PARUTHIPPATTU, jakcity: STAFF_JAKCITY };
 const items = {};
 menu.categories.forEach((c) => c.items.forEach((i) => (items[i.id] = i)));
 const branchByKey = Object.fromEntries(menu.branches.map((b) => [b.key, b]));
+
 const RESTART = /^\s*(hi+|hello+|hey+|hai|start|menu|restart|reset|home|vanakkam|namaste)\s*[!.?]*\s*$/i;
 const CANCEL  = /^\s*(cancel|stop|exit|quit)\s*[!.?]*\s*$/i;
 
@@ -66,7 +68,7 @@ const list = (to, body, button, rows, title) =>
     },
   });
 
-// ---------- sessions (in memory; use Redis if you run several instances) ----------
+// ---------- sessions ----------
 const sessions = new Map();
 const blank = () => ({ step: 'idle', branch: null, cart: {}, mode: null, address: '', name: '', webOrder: null });
 const session = (id) => {
@@ -171,7 +173,7 @@ async function handle(from, msg) {
     return text(from, 'Sorry, I can only read text and button taps. Send "hi" to start.');
   }
 
-  // Global restart/cancel (works at any step)
+  // Global restart/cancel
   if (!id && body && CANCEL.test(body)) {
     reset(from);
     return text(from, 'Order cancelled. Send "hi" whenever you want to order again.');
@@ -216,7 +218,11 @@ async function handle(from, msg) {
 
   if (id.startsWith('branch:')) {
     s.branch = id.slice(7);
-    return showCategories(from);
+    const base = process.env.APP_URL || 'https://YOUR-APP-URL';
+    const token = signOrderLink(from, s.branch);
+    const url = base + '/order?branch=' + encodeURIComponent(s.branch) + '&t=' + encodeURIComponent(token);
+    await text(from, 'Place your order on our website:');
+    return buttons(from, url, [['website_order', 'Open order page']]);
   }
   if (id.startsWith('cat:')) return showItems(from, id.slice(4));
   if (id.startsWith('item:')) {
@@ -263,6 +269,9 @@ async function handle(from, msg) {
     reset(from);
     return text(from, 'Order cancelled. Send "hi" whenever you want to order again.');
   }
+  if (id === 'website_order') {
+    return;
+  }
   return welcome(from);
 }
 
@@ -284,7 +293,7 @@ app.post('/webhook', (req, res) => {
     const ok = sig.length === expected.length && crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
     if (!ok) return res.sendStatus(401);
   }
-  res.sendStatus(200); // answer fast, work after
+  res.sendStatus(200);
   const value = req.body?.entry?.[0]?.changes?.[0]?.value;
   for (const msg of value?.messages || []) {
     handle(msg.from, msg).catch((e) => console.error('handler error', e));
@@ -292,4 +301,7 @@ app.post('/webhook', (req, res) => {
 });
 
 app.get('/', (_req, res) => res.send('Hotel Aalayaa bot is running'));
-app.listen(PORT, () => console.log(`Bot listening on ${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Bot listening on ${PORT}`));
+}
+module.exports = { handle };

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order - Hotel Aalayaa</title>
+<style>
+:root { --leaf:#1D5A3E; --gold:#EDA91B; --bg:#F3F6EE; --fg:#17261E; }
+body{margin:0;font-family:system-ui;background:var(--bg);color:var(--fg)}
+header{background:var(--leaf);color:#fff;padding:12px 16px}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.cat h2{margin:20px 0 10px}
+.items{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.item{background:#fff;border:1px solid #d8e0d1;border-radius:12px;padding:12px;display:flex;justify-content:space-between}
+.btn{background:var(--leaf);color:#fff;border:none;padding:8px 14px;border-radius:999px;cursor:pointer}
+.cart{background:#fff;border:1px solid #d8e0d1;border-radius:12px;padding:16px;position:sticky;top:16px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #d8e0d1;border-radius:10px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><strong>Hotel Aalayaa</strong> - Order Online</div></header>
+<div class="wrap">
+<div class="grid">
+<main id="menu"></main>
+<aside class="cart">
+<h3>Your Cart</h3>
+<div id="cartItems"></div>
+<div>Total: <span id="total">₹0</span></div>
+<hr>
+<div id="auth"></div>
+<label>Order Type
+<select id="type"><option value="Delivery">Delivery</option><option value="Pickup">Pickup</option></select>
+</label>
+<div id="addrBox"><label>Address<textarea id="address"></textarea></label></div>
+<label>Name<input id="name"></label>
+<label>Phone<input id="phone"></label>
+<label>Payment
+<select id="pay"><option value="cod">Pay at restaurant / Cash on delivery</option><option value="razorpay">Pay Online (Razorpay)</option></select>
+</label>
+<button class="btn" id="place">Place Order</button>
+</aside>
+</div>
+</div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const branch = params.get('branch');
+const t = params.get('t');
+let tokenData=null, menuData=null, cart={};
+async function load(){
+  const r = await fetch('/order/meta?branch='+encodeURIComponent(branch)+'&t='+encodeURIComponent(t));
+  menuData = await r.json();
+  tokenData = menuData.token;
+  if(tokenData){ document.getElementById('phone').value=tokenData.phone||''; document.getElementById('phone').readOnly=true; }
+  else document.getElementById('auth').innerHTML='<small>No token - enter phone & name</small>';
+  renderMenu();
+}
+function renderMenu(){
+  const m=document.getElementById('menu');
+  m.innerHTML=menuData.categories.map(cat=>`<section class="cat"><h2>${cat.name}</h2><div class="items">${cat.items.map(it=>`<div class="item"><div><strong>${it.name}</strong><div>₹${it.price}</div></div><button class="btn" onclick="add('${it.id}')">Add</button></div>`).join('')}</div></section>`).join('');
+}
+function add(id){ cart[id]=(cart[id]||0)+1; renderCart(); }
+function renderCart(){
+  const items = menuData.categories.flatMap(c=>c.items);
+  let total=0, html='';
+  for(const k in cart){ const it=items.find(x=>x.id===k); if(!it) continue; const line=it.price*cart[k]; total+=line; html+=`<div>${cart[k]}x ${it.name} = ₹${line}</div>`; }
+  document.getElementById('cartItems').innerHTML=html||'Empty';
+  document.getElementById('total').textContent='₹'+total;
+}
+document.getElementById('type').onchange=()=>{ document.getElementById('addrBox').style.display = document.getElementById('type').value==='Delivery'?'block':'none'; }
+document.getElementById('addrBox').style.display='block';
+document.getElementById('place').onclick=async()=>{
+  const body={branch_key:branch, phone:document.getElementById('phone').value, name:document.getElementById('name').value, type:document.getElementById('type').value, address:document.getElementById('address').value, cart, payment_method:document.getElementById('pay').value};
+  const r=await fetch('/order/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const data=await r.json();
+  if(data.razorpayOrderId){
+    const options={key:data.key,amount:data.amount*100,currency:'INR',order_id:data.razorpayOrderId,name:'Hotel Aalayaa',handler:async function(resp){
+      await fetch('/order/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({razorpay_order_id:resp.razorpay_order_id,razorpay_payment_id:resp.razorpay_payment_id,razorpay_signature:resp.razorpay_signature,orderId:data.orderId})});
+      alert('Order placed: '+data.publicCode);
+    }};
+    new Razorpay(options).open();
+  }else if(data.success){
+    alert('Order placed: '+data.publicCode);
+  }else alert('Error');
+}
+load();
+</script>
+</body>
+</html>
